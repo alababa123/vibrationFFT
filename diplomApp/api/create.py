@@ -11,8 +11,8 @@ def edit_data(request):
     data = json.loads(request.body.decode('utf-8'))
     for i in data['data']:
         AccelerationData(
-            time=data['time'],
-            acceleration=data['acceleration']
+            time=i['time'],
+            acceleration=i['acceleration']
         ).save()
     
     return Response(status=status.HTTP_200_OK, data={
