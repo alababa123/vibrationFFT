@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fourier Transform Plot</title>
+  <!-- Подключаем необходимые библиотеки -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Элемент, в котором будет отображаться график -->
+  <canvas id="fft-plot"></canvas>
+
+  <script>
+    
+    const N = 10000; 
+    const signal = Array.from({ length: N }, () => Math.random());
+    console.log(signal)
+    const result = new Array(N).fill(0).map((_, k) => {
+      let re = 0;
+      let im = 0;
+      for (let n = 0; n < N; n++) {
+        const phi = (2 * Math.PI * k * n) / N;
+        re += signal[n] * Math.cos(phi);
+        im -= signal[n] * Math.sin(phi);
+      }
+      return Math.sqrt(re * re + im * im);
+    });
+
+    // Получаем частоты
+    const frequencies = Array.from({ length: N }, (_, i) => i);
+    console.log(frequencies)
+    // Создаем данные для построения графика
+    const ctx = document.getElementById('fft-plot').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: frequencies,
+        datasets: [{
+          label: 'Fourier Transform',
+          data: result,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          fill: false,
+        }],
+      },
+      options: {
+        scales: {
+          x: [{
+            type: 'linear',
+            position: 'bottom',
+          }],
+          y: [{
+            type: 'linear',
+            position: 'left',
+          }],
+        },
+      },
+    });
+  </script>
+</body>
+</html>

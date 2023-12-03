@@ -19,10 +19,10 @@ def get_data(request):
 
     acceleration = [i.acceleration for i in out]
 
-    dt = from_date - to_date
+    dt = from_date - to_date   
     freq = np.fft.fftfreq(n, dt)
     fft_values = fft(acceleration)
-    magnitude_spectrum = np.abs(fft_values)
-    print(magnitude_spectrum)
+    magnitude_spectrum = list(np.abs(fft_values))
+    print(magnitude_spectrum)   
 
     return Response(status=status.HTTP_200_OK)

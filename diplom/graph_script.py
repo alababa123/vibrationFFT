@@ -5,7 +5,7 @@ def get_data_from_server():
     url = 'http://localhost:2000/api/data/get/'  # Замените на ваш URL
     response = requests.post(url, json={
         'from': 0,
-        'to': 10000
+        'to': 1700000000
     })
 
     if response.status_code == 200:
