@@ -25,4 +25,7 @@ def get_data(request):
     magnitude_spectrum = list(np.abs(fft_values))
     print(magnitude_spectrum)   
 
-    return Response(status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_200_OK, data={
+        'data': magnitude_spectrum
+        }
+        )
